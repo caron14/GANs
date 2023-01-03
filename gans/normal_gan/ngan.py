@@ -57,10 +57,7 @@ class Generator_NGAN(nn.Module):
         Return:
             generated images, torch.tensor (image_dim,)
         """
-        # unsqueeze: (n_samples, z_dim) --> (n_samples, z_dim, 1, 1),
-        # where (1, 1) is width and height, respectively.
-        x = noise.view(len(noise), self.z_dim, 1, 1)
-        return self.gen(x)
+        return self.gen(noise)
 
 
 class Discriminator_NGAN(nn.Module):

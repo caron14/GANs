@@ -39,7 +39,7 @@ def main(params):
     # load or download the dataset and return as DataLoader
     dataloader = load_mnist_dataset(dataset_path=cwd_path,
                                     download=True,
-                                    batch_size=batch_size,
+                                    batch_size=params['batch_size'],
                                     shuffle=True)
 
     # train the models

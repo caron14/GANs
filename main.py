@@ -48,7 +48,6 @@ def main(params):
     gen, disc = train_ngan(
         dataloader,
         output_path=output_path,
-        dataset_path=cwd_path,
         z_dim=params['z_dim'],
         n_epochs=params['n_epochs'],
         display_step=params['display_step'],

@@ -71,6 +71,7 @@ def train_ngan(
     mean_discriminator_loss = 0
     gen_loss = False
     for epoch in range(n_epochs):
+        print(f"epoch {epoch}\n")
         for real, _ in tqdm(dataloader):
             cur_batch_size = len(real)
 

@@ -51,7 +51,6 @@ def main(params):
         z_dim=params['z_dim'],
         n_epochs=params['n_epochs'],
         display_step=params['display_step'],
-        batch_size=params['batch_size'],
         lr=params['lr'],
         device=device,
     )

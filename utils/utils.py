@@ -1,29 +1,24 @@
 import os
-from pathlib import Path
 import shutil
 
 
 
 def create_tmp_dir(path):
     """
-    Create the output directory if NOT exist,
+    Create the directory if NOT exist,
     or Remove the previous result and recreate the one.
     
     Args:
-        path: str
-            directory PATH
-    example
-    -------
-    path = './work' --> './work/output/'
+        path: pathlib.Path
+            directory PATH to be created
     """
-    # Result output folder: create if NOT exist
-    OUTPUT_PATH = Path(path) / 'output'
-    if not os.path.exists(OUTPUT_PATH):
-        os.makedirs(OUTPUT_PATH)
+    # Result the folder: create if NOT exist
+    if not os.path.exists(path):
+        os.makedirs(path)
     else:
         # remove the previous results
-        shutil.rmtree(OUTPUT_PATH)
-        os.makedirs(OUTPUT_PATH)
+        shutil.rmtree(path)
+        os.makedirs(path)
 
 
 

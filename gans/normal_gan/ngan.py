@@ -8,10 +8,10 @@ class Generator_NGAN(nn.Module):
     Generator
     
     Args:
-        z_dim: the dimension of the noise vector
+        z_dim: int, the dimension of the noise vector
         image_dim: int, default = 784(= 28 * 28)
             the dimensiton of flatten images
-        hidden_dim: the unit of intermediate-layer dimensions
+        hidden_dim: int, the unit of intermediate-layer dimensions
     """
     def __init__(self, z_dim=10, image_dim=784, hidden_dim=32):
         super(Generator_NGAN, self).__init__()
@@ -98,7 +98,6 @@ class Discriminator_NGAN(nn.Module):
         else:
             return nn.Sequential(
                 nn.Linear(input_dim, output_dim),
-                # nn.BatchNorm1d(output_dim),
                 nn.LeakyReLU(negative_slope=0.2),
             )
 

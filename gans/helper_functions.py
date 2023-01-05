@@ -51,7 +51,7 @@ def show_images(
     if save_path:
         plt.savefig(save_path / filename)
     plt.show()
-    plt.close()
+    # plt.close()
 
 
 

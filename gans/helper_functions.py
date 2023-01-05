@@ -50,7 +50,7 @@ def show_images(
     plt.imshow(image_grid.permute(1, 2, 0).squeeze())
     if save_path:
         plt.savefig(save_path / filename)
-    # plt.show()
+    plt.show()
     plt.close()
 
 

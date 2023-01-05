@@ -2,7 +2,7 @@ from normal_gan.ngan import (
     Generator_NGAN,
     Discriminator_NGAN,
 )
-from normal_gan.losses_ngan import (
+from normal_gan.loss_func_ngan import (
     generator_loss,
     discriminator_loss,
 )

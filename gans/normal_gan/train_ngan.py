@@ -106,7 +106,7 @@ def train_ngan(
 
             # Visualization of results at the specific step
             if cur_step % display_step == 0 and cur_step > 0:
-                print(f"Step {cur_step}: Generator loss: {mean_generator_loss}, discriminator loss: {mean_discriminator_loss}")
+                # print(f"Step {cur_step}: Generator loss: {mean_generator_loss}, discriminator loss: {mean_discriminator_loss}")
                 fake_noise = create_noise(cur_batch_size, z_dim, device=device)
                 fake = gen(fake_noise)
                 show_images(fake, save_path=output_path, filename=f"{cur_step}_fake.png")

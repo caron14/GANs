@@ -40,7 +40,7 @@ The main features are as follows:
 * The basic structure of CGAN is the same as DCGAN
 * In only the generator, the conditional vector is added.s
 
-### WGAN
+## WGAN
 
 Wasserstein GAN(WGAN) is a model which solves generally known problem of GANs, the stability of training a model.
 For example, the one of the problem is known as mode collapse.

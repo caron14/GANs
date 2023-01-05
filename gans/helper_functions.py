@@ -26,6 +26,8 @@ def show_images(
         image_tensor,
         num_images=25,
         size=(1, 28, 28),
+        save_path=None,
+        filename='image.png',
     ):
     """
     Visualize images from tensor of images
@@ -37,10 +39,16 @@ def show_images(
             number of images
         size: tuple of int, default = (1, 28, 28)
             size of a image
+        save_path: pathlib.Path, default = None
+            output directory PATH
+        filename: str, default = 'image.png'
+            filename to be saved
     """
     image_unflat = image_tensor.detach().cpu().view(-1, *size)
     image_grid = make_grid(image_unflat[:num_images], nrow=5)
     plt.imshow(image_grid.permute(1, 2, 0).squeeze())
+    if save_path:
+        plt.savefig(save_path / filename)
     # plt.show()
     plt.close()
 

@@ -13,6 +13,7 @@ from train_ngan import train_ngan
 torch.manual_seed(0)
 
 
+
 def main():
     # current work directory
     cwd_path = os.path.dirname(__file__)

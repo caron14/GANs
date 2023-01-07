@@ -47,7 +47,7 @@ def show_images(
     """
     plt.figure(figsize=(6, 6))
     image_unflat = image_tensor.detach().cpu().view(-1, *size)
-    image_grid = make_grid(image_unflat[:num_images], nrow=5, padding=1)
+    image_grid = make_grid(255 * (1 + image_unflat[:num_images]), nrow=5, padding=1)
     plt.imshow(image_grid.permute(1, 2, 0).squeeze().numpy().astype(np.uint8))
     if save_path:
         plt.savefig(save_path / filename)

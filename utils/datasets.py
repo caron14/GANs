@@ -34,10 +34,9 @@ def load_mnist_dataset(
     -------
     for images, labels in dataloader:
     """
-    # Transform the image values into -1 ~ +1,
-    # where this range is determined
-    # by usage of the tanh activation function
-    # in the output layer.
+    # Transform the image values into -1 ~ +1, where this range is determined
+    # by usage of the tanh activation function in the output layer.
+    # Note that, however, DataLoader(MNIST()) is already normalized.
     transform = transforms.Compose([
         transforms.ToTensor(),
         # transforms.Normalize((0.5,), (0.5,)),  # (mean, std)

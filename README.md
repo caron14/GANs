@@ -24,7 +24,7 @@ The main features are as follows:
 
 ## DCGAN
 
-[paper](https://arxiv.org/abs/1511.06434)
+[[paper]](https://arxiv.org/abs/1511.06434)  
 A deep convolutional GAN(DCGAN) is a model which the normal GAN is extended by convolutional layers.
 The main features are as follows:
 
@@ -35,7 +35,7 @@ The main features are as follows:
 
 ## CGAN
 
-[paper](https://arxiv.org/abs/1411.1784)
+[[paper]](https://arxiv.org/abs/1411.1784)  
 A conditional GAN(CGAN) generates images dependent on the conditions, e.g. labels of hand-written images of digits.
 The main features are as follows:
 

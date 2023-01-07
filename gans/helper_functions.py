@@ -50,6 +50,8 @@ def show_images(
     image_grid = make_grid(255 * (1 + image_unflat[:num_images]), nrow=5, padding=1)
     # plt.imshow(image_grid.permute(1, 2, 0).squeeze().numpy().astype(np.uint8))
     plt.imshow(image_grid.permute(1, 2, 0).squeeze())
+    print(f"{filename}: {image_unflat.shape}")
+    print(image_unflat[0])
     if save_path:
         plt.savefig(save_path / filename)
     plt.show()

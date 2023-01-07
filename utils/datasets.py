@@ -40,7 +40,8 @@ def load_mnist_dataset(
     # in the output layer.
     transform = transforms.Compose([
         transforms.ToTensor(),
-        transforms.Normalize((0.5,), (0.5,)),
+        transforms.Normalize((0.5,), (0.5,)),  # (mean, std)
+        # transforms.ConvertImageDtype(torch.float),
     ])
 
     # Load the MNIST dataset with preprocessing defined at transform.

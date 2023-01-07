@@ -117,7 +117,7 @@ def train_ngan(
                 mean_discriminator_loss = 0
             cur_step += 1
         print()  # pause
-    
+
     return gen, disc
 
 

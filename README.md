@@ -35,6 +35,7 @@ The main features are as follows:
 
 ## CGAN
 
+[paper](https://arxiv.org/abs/1411.1784)
 A conditional GAN(CGAN) generates images dependent on the conditions, e.g. labels of hand-written images of digits.
 The main features are as follows:
 

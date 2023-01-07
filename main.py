@@ -15,11 +15,13 @@ torch.manual_seed(0)
 
 
 
-def main(params):
+def main(model_type, params):
     """
     Main function for execution
     
     Args:
+        model_type: str
+            Model-type name, e.g. 'ngan', 'dcgan'
         params: dict
             hyper params
     """
@@ -45,19 +47,29 @@ def main(params):
     # train the models
     ## gen: generator
     ## disc: discriminator
-    gen, disc = train_ngan(
-        dataloader,
-        output_path=output_path,
-        z_dim=params['z_dim'],
-        n_epochs=params['n_epochs'],
-        display_step=params['display_step'],
-        lr=params['lr'],
-        device=device,
-    )
+    if model_type == 'ngan':
+        gen, disc = train_ngan(
+            dataloader,
+            output_path=output_path,
+            z_dim=params['z_dim'],
+            n_epochs=params['n_epochs'],
+            display_step=params['display_step'],
+            lr=params['lr'],
+            device=device,
+        )
+    else:
+        print(f"model_type = {model_type} is NOT supported.")
+        return None
 
 
 
 if __name__ == '__main__':
+    """
+    GAN type
+    --------
+    ngan: Normal GAN
+    dcgan: Deep Convolutional GAN(DCGAN)
+    """
     model_type = 'ngan'
     
     if model_type == 'ngan':
@@ -68,5 +80,8 @@ if __name__ == '__main__':
             'batch_size': 128,
             'lr': 1e-5,
         }
+    else:
+        print(f"model_type = {model_type} is NOT supported.")
+        sys.exit()
 
-    main(params)
+    main(model_type, params)

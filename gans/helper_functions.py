@@ -46,8 +46,10 @@ def show_images(
             filename to be saved
     """
     plt.figure(figsize=(6, 6))
+    # inverting the normalization: [0..1] --> [0..255]
+    # image_tensor = image_tensor * 255
     image_unflat = image_tensor.detach().cpu().view(-1, *size)
-    image_grid = make_grid(255 * (1 + image_unflat[:num_images]), nrow=5, padding=1)
+    image_grid = make_grid(image_unflat[:num_images], nrow=5, padding=1)
     # plt.imshow(image_grid.permute(1, 2, 0).squeeze().numpy().astype(np.uint8))
     plt.imshow(image_grid.permute(1, 2, 0).squeeze())
     print(f"{filename}: {image_unflat.shape}")

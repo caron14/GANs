@@ -24,6 +24,7 @@ The main features are as follows:
 
 ## DCGAN
 
+[paper](https://arxiv.org/abs/1511.06434)
 A deep convolutional GAN(DCGAN) is a model which the normal GAN is extended by convolutional layers.
 The main features are as follows:
 

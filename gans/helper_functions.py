@@ -49,6 +49,8 @@ def show_images(
     image_unflat = image_tensor.detach().cpu().view(-1, *size)
     image_grid = make_grid(255 * (1 + image_unflat[:num_images]), nrow=5, padding=1)
     plt.imshow(image_grid.permute(1, 2, 0).squeeze().numpy().astype(np.uint8))
+    print(f"{filename}: {image_unflat.shape}")
+    print(image_unflat[0])
     if save_path:
         plt.savefig(save_path / filename)
     plt.show()
@@ -58,7 +60,7 @@ def show_images(
 
 if __name__ == '__main__':
     torch.manual_seed(0)
-    
+
     # Test for the function "create_noise()"
     noise = create_noise(1000, 10, 'cpu')
     assert tuple(noise.shape) == (1000, 10)

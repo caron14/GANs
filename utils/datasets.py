@@ -40,8 +40,7 @@ def load_mnist_dataset(
     # in the output layer.
     transform = transforms.Compose([
         transforms.ToTensor(),
-        transforms.Normalize((0.5,), (0.5,)),  # (mean, std)
-        # transforms.ConvertImageDtype(torch.float),
+        # transforms.Normalize((0.5,), (0.5,)),  # (mean, std)
     ])
 
     # Load the MNIST dataset with preprocessing defined at transform.
@@ -49,10 +48,9 @@ def load_mnist_dataset(
     # the dataset will be downloaded.
     dataloader = DataLoader(
         MNIST(dataset_path, download=download, transform=transform),
-        batch_size=batch_size,
-        shuffle=shuffle,
+        batch_size=batch_size, shuffle=shuffle,
     )
-    
+
     return dataloader
 
 

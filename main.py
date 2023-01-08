@@ -42,7 +42,8 @@ def main(model_type, params):
 
     # Get the DataLoader:
     # load or download the dataset and return as DataLoader
-    dataloader = load_mnist_dataset(dataset_path=cwd_path,
+    dataloader = load_mnist_dataset(model_type,
+                                    dataset_path=cwd_path,
                                     download=True,
                                     batch_size=params['batch_size'],
                                     shuffle=True)
@@ -85,9 +86,9 @@ if __name__ == '__main__':
     ngan: Normal GAN
     dcgan: Deep Convolutional GAN(DCGAN)
     """
-    model_type = 'dcgan'
+    model_type = 'ngan'
     
-    if model_type == 'ngan':
+    if model_type == 'dcgan':
         params = {
             'z_dim': 64,
             'n_epochs': 50,

@@ -22,7 +22,7 @@ The main features are as follows:
 * In the discriminator, LeakyReLU activation is used in hidden layers, and no activation is used in an output layer.
 * BatchNorm is NOT used.
 
-## DCGAN
+## DCGAN(under implementation)
 
 [[paper]](https://arxiv.org/abs/1511.06434)  
 A deep convolutional GAN(DCGAN) is a model which the normal GAN is extended by convolutional layers.
@@ -33,7 +33,7 @@ The main features are as follows:
 * In the discriminator, LeakyReLU activation is used in hidden layers, and no activation is used in an output layer.
 * BatchNorm is used, whereas Dropout is NOT used.
 
-## CGAN
+## CGAN(under implementation)
 
 [[paper]](https://arxiv.org/abs/1411.1784)  
 A conditional GAN(CGAN) generates images dependent on the conditions, e.g. labels of hand-written images of digits.
@@ -42,7 +42,7 @@ The main features are as follows:
 * The basic structure of CGAN is the same as DCGAN
 * In only the generator, the conditional vector is added.s
 
-## WGAN
+## WGAN(under implementation)
 
 Wasserstein GAN(WGAN) is a model which solves generally known problem of GANs, the stability of training a model.
 For example, the one of the problem is known as mode collapse.

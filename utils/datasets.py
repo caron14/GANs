@@ -5,6 +5,7 @@ import torchvision.transforms as transforms
 
 
 def load_mnist_dataset(
+        model_type,
         dataset_path='.', 
         download=True, 
         batch_size=64, 
@@ -37,10 +38,14 @@ def load_mnist_dataset(
     # Transform the image values into -1 ~ +1, where this range is determined
     # by usage of the tanh activation function in the output layer.
     # Note that, however, DataLoader(MNIST()) is already normalized.
-    transform = transforms.Compose([
-        transforms.ToTensor(),
-        # transforms.Normalize((0.5,), (0.5,)),  # (mean, std)
-    ])
+    composition = [transforms.ToTensor()]
+    if model_type in ['dcgan']:
+        composition.append(transforms.Normalize((0.5,), (0.5,)))
+    transform = transforms.Compose(composition)
+    # transform = transforms.Compose([
+    #     transforms.ToTensor(),
+    #     # transforms.Normalize((0.5,), (0.5,)),  # (mean, std)
+    # ])
 
     # Load the MNIST dataset with preprocessing defined at transform.
     # Note that when the dataset does NOT exist in the local environment,

@@ -39,8 +39,8 @@ The main features are as follows:
 A conditional GAN(CGAN) generates images dependent on the conditions, e.g. labels of hand-written images of digits.
 The main features are as follows:
 
-* The basic structure of CGAN is the same as DCGAN
-* In only the generator, the conditional vector is added.s
+* The basic structure of CGAN is the same as DCGAN.
+* In only the generator, the conditional vector is added.
 
 ## WGAN(under implementation)
 

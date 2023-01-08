@@ -43,6 +43,12 @@ def train_dcgan(
     Args:
         dataloader: torch.utils.data.DataLoader
             DataLoader to recieve a batch dataset in each loop
+        normalize_mean: tuple, default = None
+            mean values for normalization by transforms.Normalize()
+            e.g. (0.5,)
+        normalize_std: tuple, default = None
+            standard deviation(std) values for normalization by transforms.Normalize()
+            e.g. (0.5,)
         output_path: pathlib.Path
             output directory PATH
         n_epochs: int, default = 100
@@ -126,6 +132,10 @@ def train_dcgan(
                 # print(f"Step {cur_step}: Generator loss: {mean_generator_loss}, discriminator loss: {mean_discriminator_loss}")
                 fake_noise = create_noise(cur_batch_size, z_dim, device=device)
                 fake = gen(fake_noise)
+                # invert normalization, x = mu + std * x_norm
+                fake = float(normalize_mean[0]) + (float(normalize_std[0]) * fake)
+                real = float(normalize_mean[0]) + (float(normalize_std[0]) * real)
+                # Save the images
                 show_images(fake, save_path=output_path, filename=f"{img_idx}_fake.png")
                 show_images(real, save_path=output_path, filename=f"{img_idx}_real.png")
                 img_idx += 1

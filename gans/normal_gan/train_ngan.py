@@ -7,10 +7,10 @@ from tqdm import tqdm
 sys.path.append('./gans')
 from helper_functions import create_noise
 from helper_functions import show_images
+from gans.loss_func_gans import generator_loss
+from gans.loss_func_gans import discriminator_loss
 
 sys.path.append('./gans/normal_gan')
-from gans.normal_gan.loss_func_ngan import generator_loss
-from gans.normal_gan.loss_func_ngan import discriminator_loss
 from gans.normal_gan.ngan import Generator_NGAN
 from gans.normal_gan.ngan import Discriminator_NGAN
 

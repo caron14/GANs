@@ -59,13 +59,13 @@ You can get started in building the GANs models in this repository by the follow
 1. Create a docker image from Dockerfile.
 
     ```bash
-    docker build -t gan:practice .
+    $ docker build -t gan:practice .
     ```
 
 2. Run a docker container created from the docker image.
 
     ```bash
-    docker run -it --name (container name) -v ~/(local dir)/:/work (IMAGE ID) bash
+    $ docker run -it --name (container name) -v ~/(local dir)/:/work (IMAGE ID) bash
     ```
 
     Note that "--name (container name)" is an instruction to add a container name.
@@ -75,5 +75,20 @@ You can get started in building the GANs models in this repository by the follow
 3. Execute the python main script(main.py).
 
     ```bash
-    python main.py
+    $ python main.py
     ```
+
+## Test
+
+The test of the scripts is executed by pytest.
+The test scripts are in the "tests" directory.
+
+```bash
+$ ./tests
+```
+
+You can get started with the following command.
+
+```bash
+$ python -m pytest tests
+```

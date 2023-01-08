@@ -83,10 +83,6 @@ You can get started in building the GANs models in this repository by the follow
 The test of the scripts is executed by pytest.
 The test scripts are in the "tests" directory.
 
-```bash
-$ ./tests
-```
-
 You can get started with the following command.
 
 ```bash

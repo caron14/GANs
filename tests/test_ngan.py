@@ -74,3 +74,4 @@ def test_Discriminator_NGAN():
 
 if __name__ == '__main__':
     test_Generator_NGAN()
+    test_Discriminator_NGAN()

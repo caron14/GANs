@@ -6,12 +6,14 @@ from torch import nn
 class Generator_NGAN(nn.Module):
     """
     Generator
-    
+
     Args:
-        z_dim: int, the dimension of the noise vector
+        z_dim: int, 
+            the dimension of the noise vector
         image_dim: int, default = 784(= 28 * 28)
             the dimensiton of flatten images
-        hidden_dim: int, the unit of intermediate-layer dimensions
+        hidden_dim: int, 
+            the unit of intermediate-layer dimensions
     """
     def __init__(self, z_dim=10, image_dim=784, hidden_dim=32):
         super(Generator_NGAN, self).__init__()
@@ -119,7 +121,7 @@ if __name__ == '__main__':
     """
     input_dim = 100
     gen = Generator_NGAN(z_dim=10, image_dim=input_dim, hidden_dim=32)
-    
+
     # Check the layer size and type
     ## hidden-layer block
     output_dim = 20
@@ -151,7 +153,7 @@ if __name__ == '__main__':
     input_dim, hiddlen_dim = 1000, 100
     disc = Discriminator_NGAN(image_dim=input_dim, hidden_dim=hiddlen_dim)
     assert len(disc.disc) == 4  # There are the 4 blocks
-    
+
     # Check the layer size and type
     ## hidden-layer block
     hidden_block = disc.block(input_dim, hiddlen_dim)

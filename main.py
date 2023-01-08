@@ -86,9 +86,9 @@ if __name__ == '__main__':
     ngan: Normal GAN
     dcgan: Deep Convolutional GAN(DCGAN)
     """
-    model_type = 'ngan'
+    model_type = 'dcgan'
     
-    if model_type == 'dcgan':
+    if model_type == 'ngan':
         params = {
             'z_dim': 64,
             'n_epochs': 50,

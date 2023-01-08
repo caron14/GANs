@@ -5,11 +5,12 @@ import torchvision.transforms as transforms
 
 
 def load_mnist_dataset(
-        model_type,
         dataset_path='.', 
         download=True, 
         batch_size=64, 
         shuffle=True,
+        normalize_mean=None,
+        normalize_std=None,
     ):
     """
     Load the MNIST dataset,
@@ -28,26 +29,27 @@ def load_mnist_dataset(
             mini-batch size
         shuffle: bool, default = True
             shuffle the dataset or NOT
+        normalize_mean: tuple, default = None
+            mean values for normalization by transforms.Normalize()
+            e.g. (0.5,)
+        normalize_std: tuple, default = None
+            standard deviation(std) values for normalization by transforms.Normalize()
+            e.g. (0.5,)
+
     Returns:
         dataloader: torch.utils.data.DataLoader
-    
+
     example: we can take a batch of the dataset from DataLoader
     -------
     for images, labels in dataloader:
     """
-    # Transform the image values into -1 ~ +1, where this range is determined
-    # by usage of the tanh activation function in the output layer.
-    # Note that, however, DataLoader(MNIST()) is already normalized.
+    # The values of the dataset's images are between -1 ~ +1.
+    # The range(-1 ~ +1) is suitable for the tanh activation function.
     composition = [transforms.ToTensor()]
-    if model_type in ['dcgan']:
-        composition.append(transforms.Normalize((0.5,), (0.5,)))
+    if normalize_mean and normalize_std:
+        composition.append(transforms.Normalize(normalize_mean, normalize_std))
     transform = transforms.Compose(composition)
-    # transform = transforms.Compose([
-    #     transforms.ToTensor(),
-    #     # transforms.Normalize((0.5,), (0.5,)),  # (mean, std)
-    # ])
 
-    # Load the MNIST dataset with preprocessing defined at transform.
     # Note that when the dataset does NOT exist in the local environment,
     # the dataset will be downloaded.
     dataloader = DataLoader(
@@ -61,7 +63,7 @@ def load_mnist_dataset(
 
 if __name__ == '__main__':
     import os
-    
+
     path = os.path.dirname(__file__)
     dataloader = load_mnist_dataset(dataset_path=path,
                                     download=True,

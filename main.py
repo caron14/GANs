@@ -42,11 +42,12 @@ def main(model_type, params):
 
     # Get the DataLoader:
     # load or download the dataset and return as DataLoader
-    dataloader = load_mnist_dataset(model_type,
-                                    dataset_path=cwd_path,
+    dataloader = load_mnist_dataset(dataset_path=cwd_path,
                                     download=True,
                                     batch_size=params['batch_size'],
-                                    shuffle=True)
+                                    shuffle=True,
+                                    normalize_mean=params['normalize_mean'],
+                                    normalize_std=params['normalize_std'])
 
     # train the models
     ## gen: generator
@@ -54,6 +55,8 @@ def main(model_type, params):
     if model_type == 'ngan':
         gen, disc = train_ngan(
             dataloader,
+            # normalize_mean=None,
+            # normalize_std=None,
             output_path=output_path,
             z_dim=params['z_dim'],
             n_epochs=params['n_epochs'],
@@ -64,6 +67,8 @@ def main(model_type, params):
     elif model_type == 'dcgan':
         gen, disc = train_dcgan(
             dataloader,
+            normalize_mean=params['normalize_mean'],
+            normalize_std=params['normalize_std'],
             output_path=output_path,
             z_dim=params['z_dim'],
             n_epochs=params['n_epochs'],
@@ -105,6 +110,8 @@ if __name__ == '__main__':
             'lr': 2e-4,
             'beta_1': 0.5,
             'beta_2': 0.999,
+            'normalize_mean': (0.5,),
+            'normalize_std': (0.5,),
         }
     else:
         print(f"model_type = {model_type} is NOT supported.")

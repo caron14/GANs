@@ -26,6 +26,8 @@ def weights_init(m):
 
 def train_dcgan(
         dataloader,
+        normalize_mean=None,
+        normalize_std=None,
         output_path=None,
         z_dim=64,
         n_epochs=100,

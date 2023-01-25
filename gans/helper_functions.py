@@ -1,6 +1,7 @@
 from matplotlib import pyplot as plt
 import numpy as np
 import torch
+import torch.nn.functional as F
 from torchvision.utils import make_grid
 
 
@@ -53,6 +54,20 @@ def show_images(
         plt.savefig(save_path / filename)
     plt.show()
     plt.close()
+
+
+def labels_to_one_hot(labels, n_classes):
+    """
+    Convert the labels into one-hot vectors
+
+    Args:
+        labels: tensor of labels from the dataloader, size (?)
+        n_classes: the total number of classes in the dataset, an integer scalar
+    
+    Return:
+        torch tensor, (number of samples, number of the classes)
+    """
+    return F.one_hot(labels, num_classes=n_classes)
 
 
 

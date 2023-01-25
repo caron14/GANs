@@ -39,8 +39,6 @@ def weights_init(m):
 
 def train_cgan(
         dataloader,
-        normalize_mean=None,
-        normalize_std=None,
         output_path=None,
         z_dim=64,
         n_classes=10,

@@ -106,8 +106,9 @@ if __name__ == '__main__':
     --------
     ngan: Normal GAN
     dcgan: Deep Convolutional GAN(DCGAN)
+    cgan: Consitional GAN(CGAN)
     """
-    model_type = 'dcgan'
+    model_type = 'cgan'
     
     if model_type == 'ngan':
         params = {

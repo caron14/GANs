@@ -15,7 +15,7 @@ sys.path.append('./gans/deep_convolutional_gan')
 from train_dcgan import train_dcgan
 
 sys.path.append('./gans/conditional_gan')
-from train_cgan import train_dcgan
+from train_cgan import train_cgan
 
 torch.manual_seed(0)
 

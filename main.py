@@ -82,7 +82,7 @@ def main(model_type, params):
             device=device,
         )
     elif model_type == 'cgan':
-        gen, disc = train_dcgan(
+        gen, disc = train_cgan(
             dataloader,
             output_path=output_path,
             z_dim=params['z_dim'],
@@ -140,6 +140,8 @@ if __name__ == '__main__':
             'lr': 2e-4,
             'beta_1': 0.5,
             'beta_2': 0.999,
+            'normalize_mean': (0.5,),
+            'normalize_std': (0.5,),
         }
     else:
         print(f"model_type = {model_type} is NOT supported.")

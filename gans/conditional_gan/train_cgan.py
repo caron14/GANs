@@ -92,8 +92,8 @@ def train_cgan(
     # Define a model
     ## Generator
     gen = Generator_CGAN(z_dim + n_classes).to(device)
-    ## Discriminator, Note: 3 is the channnel of MNIST image
-    disc = Discriminator_CGAN(im_chan=3 + n_classes).to(device)
+    ## Discriminator, Note: 1 is the channnel of MNIST image
+    disc = Discriminator_CGAN(im_chan=1 + n_classes).to(device)
 
     # Initialize the weights of the model into the normal distribution.
     gen = gen.apply(weights_init)
@@ -121,7 +121,7 @@ def train_cgan(
             """
             one_hot_labels = labels_to_one_hot(labels.to(device), n_classes)
             image_one_hot_labels = one_hot_labels[:, :, None, None]
-            image_one_hot_labels = one_hot_labels.repeat(1, 1, 28, 28)
+            image_one_hot_labels = image_one_hot_labels.repeat(1, 1, 28, 28)
 
             ## Train discriminator part
             # Initialize the optimizer
@@ -134,6 +134,8 @@ def train_cgan(
             fake = gen(noise_and_lbl_vec)
 
             # Prediction from the discriminator
+            ## fake.shape == [batchsize, 1, 28, 28]
+            ## image_one_hot_labels.shape == [batchsize, 10, 28, 28]
             fake_imgs_with_lbls = combine_vectors(fake.detach(), image_one_hot_labels)
             real_imgs_with_lbls = combine_vectors(real, image_one_hot_labels)
             disc_fake_pred = disc(fake_imgs_with_lbls)

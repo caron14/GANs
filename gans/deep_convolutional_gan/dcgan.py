@@ -54,7 +54,7 @@ class Generator_DCGAN(nn.Module):
                 nn.ConvTranspose2d(input_channels, output_channels,
                                     kernel_size, stride=stride),
                 nn.BatchNorm2d(output_channels),
-                nn.ReLU(),
+                nn.ReLU(inplace=True),
             )
 
     def unsqueeze_noise(self, noise):
@@ -127,7 +127,7 @@ class Discriminator_DCGAN(nn.Module):
                 nn.Conv2d(input_channels, output_channels, 
                         kernel_size, stride=stride),
                 nn.BatchNorm2d(output_channels),
-                nn.LeakyReLU(negative_slope=0.2),
+                nn.LeakyReLU(negative_slope=0.2, inplace=True),
             )
 
     def forward(self, image):

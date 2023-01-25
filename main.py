@@ -14,6 +14,9 @@ from train_ngan import train_ngan
 sys.path.append('./gans/deep_convolutional_gan')
 from train_dcgan import train_dcgan
 
+sys.path.append('./gans/conditional_gan')
+from train_cgan import train_dcgan
+
 torch.manual_seed(0)
 
 
@@ -78,6 +81,19 @@ def main(model_type, params):
             beta_2=params['beta_2'],
             device=device,
         )
+    elif model_type == 'cgan':
+        gen, disc = train_dcgan(
+            dataloader,
+            output_path=output_path,
+            z_dim=params['z_dim'],
+            n_classes=params['n_classes'],
+            n_epochs=params['n_epochs'],
+            display_step=params['display_step'],
+            lr=params['lr'],
+            beta_1=params['beta_1'],
+            beta_2=params['beta_2'],
+            device=device,
+        )
     else:
         print(f"model_type = {model_type} is NOT supported.")
         return None
@@ -112,6 +128,17 @@ if __name__ == '__main__':
             'beta_2': 0.999,
             'normalize_mean': (0.5,),
             'normalize_std': (0.5,),
+        }
+    elif model_type == 'cgan':
+        params = {
+            'n_classes': 10,
+            'z_dim': 64,
+            'n_epochs': 50,
+            'display_step': 500,
+            'batch_size': 128,
+            'lr': 2e-4,
+            'beta_1': 0.5,
+            'beta_2': 0.999,
         }
     else:
         print(f"model_type = {model_type} is NOT supported.")

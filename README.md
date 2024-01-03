@@ -16,6 +16,17 @@ Each of the models listed below is implemented with a method of different featur
 Each model improves on the shortcomings of the GAN in turn.
 As a result, the model can generate more high-quality images.
 
+
+Below is the list of the models currently implemented in the library.
+
+
+|               Models               |                    Paper                     |
+|:----------------------------------:|:--------------------------------------------:|
+|             Normal GAN             |                                              |
+|               DCGAN                | [link](https://arxiv.org/abs/1511.06434)     |
+|:----------------------------------:|:--------------------------------------------:|
+
+
 ## Normal GAN
 
 A normal GAN consists fully connected layers.

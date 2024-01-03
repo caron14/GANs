@@ -1,0 +1,6 @@
+MNIST/
+__pycache__/
+gans/__pycache__/
+gans/normal_gan/__pycache__/
+utils/MNIST/
+utils/__pycache__/

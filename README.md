@@ -1,3 +1,9 @@
+<p align="center">
+    <a>
+	    <img src='https://img.shields.io/badge/code%20style-black-black' />
+	</a>
+</p>
+
 # Implementation of GANs
 
 This repository is for the practice of implementation of GAN(generative adversarial network).

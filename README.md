@@ -23,8 +23,8 @@ Below is the list of the models currently implemented in the library.
 |               Models               |                    Paper                     |
 |:----------------------------------:|:--------------------------------------------:|
 |             Normal GAN             |                                              |
-|               DCGAN                | [link](https://arxiv.org/abs/1511.06434)     |
-|:----------------------------------:|:--------------------------------------------:|
+|   Deep Convolutional GAN(DCGAN)    | [link](https://arxiv.org/abs/1511.06434)     |
+|       Conditional GAN(CGAN)        | [link](https://arxiv.org/abs/1411.1784)      |
 
 
 ## Normal GAN

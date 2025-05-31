@@ -1,0 +1,34 @@
+defaults:
+  - model: dcgan # Corresponds to model/dcgan.yaml
+  - data: mnist    # Corresponds to data/mnist.yaml
+  - trainer: default # Corresponds to trainer/default.yaml
+  - override hydra/job_logging: colorlog # Example of overriding hydra defaults
+  - override hydra/hydra_logging: colorlog
+
+# Top-level parameters
+seed_everything: ${data.seed} # Use the same seed as data for reproducibility
+
+# The main GAN module that LightningCLI will instantiate
+# It needs both the generator and discriminator, which are defined in model/dcgan.yaml
+# We will construct the main module by referencing the generator and discriminator from the model config.
+gan_module:
+  _target_: torch_gans.trainer.dcgan_module.DCGANModule
+  generator: ${model} # This will instantiate DCGANGenerator using model/dcgan.yaml
+  discriminator: ${model.discriminator} # This will instantiate DCGANDiscriminator
+  lr_g: ${model.module.lr_g}
+  lr_d: ${model.module.lr_d}
+  b1_g: ${model.module.b1_g}
+  b2_g: ${model.module.b2_g}
+  b1_d: ${model.module.b1_d}
+  b2_d: ${model.module.b2_d}
+
+# PyTorch Lightning Trainer settings are now in trainer/default.yaml
+# The LightningCLI will pick up 'trainer' group by default.
+
+# Hydra run directory
+hydra:
+  run:
+    dir: outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  sweep:
+    dir: multirun/${now:%Y-%m-%d}/${now:%H-%M-%S}
+    subdir: ${hydra.job.num}

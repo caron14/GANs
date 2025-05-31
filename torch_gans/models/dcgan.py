@@ -1,8 +1,10 @@
-from torch import nn
+import torch
+import torch.nn as nn
+from torch_gans.models.base import BaseGenerator, BaseDiscriminator
 
 
 
-class Generator_DCGAN(nn.Module):
+class DCGANGenerator(BaseGenerator):
     """
     Generator
 
@@ -12,14 +14,20 @@ class Generator_DCGAN(nn.Module):
         image_channels: int, default = 1
             the number of channels of the images(1: gray scale, 3: color scale)
         hidden_dim: int, 
-            the unit of intermediate-layer dimensions
+            The dimension of the noise vector.
+        img_shape: tuple[int, int, int], default = (1, 28, 28)
+            The shape of the output images (channels, height, width).
+        hidden_dim: int, default = 64
+            The unit of intermediate-layer dimensions.
     """
-    def __init__(self, z_dim=10, image_channels=1, hidden_dim=64):
-        super(Generator_DCGAN, self).__init__()
-        self.z_dim = z_dim
+    def __init__(self, latent_dim: int = 100, img_shape: tuple[int, int, int] = (1, 28, 28), hidden_dim: int = 64):
+        super().__init__(latent_dim=latent_dim, img_shape=img_shape)
+        self.image_channels = img_shape[0]
+        # self.latent_dim is set by BaseGenerator's __init__
+
         # Define the network architecture
         self.gen = nn.Sequential(
-            self.block(z_dim, hidden_dim * 4),
+            self.block(self.latent_dim, hidden_dim * 4), # Use self.latent_dim
             self.block(hidden_dim * 4, hidden_dim * 2, kernel_size=4, stride=1),
             self.block(hidden_dim * 2, hidden_dim),
             self.block(hidden_dim, image_channels, kernel_size=4, final_layer=True),
@@ -57,45 +65,48 @@ class Generator_DCGAN(nn.Module):
                 nn.ReLU(inplace=True),
             )
 
-    def unsqueeze_noise(self, noise):
+    def unsqueeze_noise(self, noise: torch.Tensor) -> torch.Tensor: # Added type hints
         """
         Unsqueeze a noise tensor:
-            (n_samples, z_dim) --> (n_samples, z_dim, width, height),
-            where width and height = 1 and channels = z_dim.
+            (n_samples, latent_dim) --> (n_samples, latent_dim, 1, 1).
 
         Args:
-            noise: a noise tensor, (n_samples, z_dim)
+            noise: A noise tensor, (n_samples, latent_dim).
 
         Return:
-            an unsqueezed noise tensor, (n_samples, z_dim, width, height)
+            An unsqueezed noise tensor, (n_samples, latent_dim, 1, 1).
         """
-        return noise.view(len(noise), self.z_dim, 1, 1)
+        return noise.view(len(noise), self.latent_dim, 1, 1) # Use self.latent_dim
 
-    def forward(self, noise):
+    def forward(self, z: torch.Tensor) -> torch.Tensor: # Changed 'noise' to 'z' for clarity, added type hints
         """
-        forward pass of the generator
+        Forward pass of the generator.
 
         Args:
-            noise: torch tensor, (n_samples, z_dim)
-                a noise vector
+            z: torch tensor, (n_samples, latent_dim)
+                A noise vector.
+        Returns:
+            Generated images (batch_size, C, H, W).
         """
-        # unsqueeze: (n_samples, z_dim) --> (n_samples, z_dim, 1, 1),
-        # where (1, 1) indicates (width, height), respectively.
-        x = self.unsqueeze_noise(noise)
+        # unsqueeze: (n_samples, latent_dim) --> (n_samples, latent_dim, 1, 1)
+        x = self.unsqueeze_noise(z)
         return self.gen(x)
 
 
-class Discriminator_DCGAN(nn.Module):
+class DCGANDiscriminator(BaseDiscriminator):
     """
     Discriminator
 
     Args:
-        image_channels: int, default = 1
-            the number of channels of the images(1: gray scale, 3: color scale)
-        hidden_dim: the unit of intermediate-layer dimensions
+        img_shape: tuple[int, int, int], default = (1, 28, 28)
+            The shape of the input images (channels, height, width).
+        hidden_dim: int, default = 16
+            The unit of intermediate-layer dimensions.
     """
-    def __init__(self, im_chan=1, hidden_dim=16):
-        super(Discriminator_DCGAN, self).__init__()
+    def __init__(self, img_shape: tuple[int, int, int] = (1, 28, 28), hidden_dim: int = 16):
+        super().__init__(img_shape=img_shape)
+        im_chan = self.img_shape[0] # Use self.img_shape from BaseDiscriminator
+
         self.disc = nn.Sequential(
             self.block(im_chan, hidden_dim),
             self.block(hidden_dim, hidden_dim * 2),
@@ -130,19 +141,15 @@ class Discriminator_DCGAN(nn.Module):
                 nn.LeakyReLU(negative_slope=0.2, inplace=True),
             )
 
-    def forward(self, image):
+    def forward(self, imgs: torch.Tensor) -> torch.Tensor: # Changed 'image' to 'imgs', added type hints
         """
+        Forward pass of the discriminator.
+
         Args:
-            image: torch tensor, (image_dim)
-                a flattened image tensor
+            imgs: torch tensor, (batch_size, C, H, W)
+                Input images.
         Return:
-            torch tensor, (image_dim)
-                prediction probability
+            Discriminator logits (batch_size, 1).
         """
-        disc_pred = self.disc(image)
+        disc_pred = self.disc(imgs)
         return disc_pred.view(len(disc_pred), -1)
-
-
-
-if __name__ == '__main__':
-    pass

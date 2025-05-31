@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 import sys
+import argparse
 
 import torch
 
@@ -102,7 +103,10 @@ if __name__ == '__main__':
     dcgan: Deep Convolutional GAN(DCGAN)
     cgan: Consitional GAN(CGAN)
     """
-    model_type = 'cgan'
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--model_type', type=str, default='cgan', help='Type of GAN model to use')
+    args = parser.parse_args()
+    model_type = args.model_type
     
     if model_type == 'ngan':
         params = {

@@ -7,6 +7,13 @@ dependencies = [
     "torchvision",
     "matplotlib",
     "numpy",
+    "tqdm",
+    "pytest",
+    "flake8",
+    "pandas",
+    "scipy",
+    "seaborn",
+    "scikit-learn"
 ]
 
 [build-system]

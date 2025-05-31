@@ -5,6 +5,7 @@ description = "A collection of Generative Adversarial Networks (GANs) implemente
 dependencies = [
     "torch",
     "torchvision",
+    "pytorch-lightning",
     "matplotlib",
     "numpy",
     "tqdm",

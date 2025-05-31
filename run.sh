@@ -7,7 +7,7 @@ source .venv/bin/activate
 model_type="cgan"
 
 # Run the main script
-python main.py --model_type model_type
+python main.py --model_type $model_type
 
 # If you want to run another entry point, use below
 # python torch_gans/train.py

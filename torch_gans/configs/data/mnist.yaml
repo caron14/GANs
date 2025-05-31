@@ -1,0 +1,10 @@
+# @package _group_
+_target_: torch_gans.data.mnist_datamodule.MNISTDataModule
+data_dir: ${oc.env:DATA_DIR,./data/mnist} # Use environment variable DATA_DIR or default
+batch_size: 128 # Common batch size for DCGAN on MNIST
+num_workers: 4
+val_split: 0.2
+normalize_mean: [0.5] # Single value for single channel
+normalize_std: [0.5]  # Single value for single channel
+seed: 42
+# image_shape is a property of the datamodule, not a param here

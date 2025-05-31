@@ -3,6 +3,8 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 from torchvision.utils import make_grid
+import os
+import shutil
 
 
 
@@ -70,6 +72,23 @@ def labels_to_one_hot(labels, n_classes):
     return F.one_hot(labels, num_classes=n_classes)
 
 
+def create_tmp_dir(path):
+    """
+    Create the directory if NOT exist,
+    or Remove the previous result and recreate the one.
+
+    Args:
+        path: pathlib.Path
+            directory PATH to be created
+    """
+    # Result the folder: create if NOT exist
+    if not os.path.exists(path):
+        os.makedirs(path)
+    else:
+        # remove the previous results
+        shutil.rmtree(path)
+        os.makedirs(path)
+
 
 if __name__ == '__main__':
     torch.manual_seed(0)
@@ -80,3 +99,19 @@ if __name__ == '__main__':
     assert str(noise.device).startswith('cpu')
     # check a normal distribution or NOT
     assert torch.abs(noise.std() - torch.tensor(1.0)) < 0.01
+
+    # Test for create_tmp_dir()
+    print("Testing create_tmp_dir...")
+    test_dir_path = "test_tmp_dir" # Using a relative path for the test
+    create_tmp_dir(test_dir_path)
+    assert os.path.exists(test_dir_path), f"Directory {test_dir_path} was not created."
+    print(f"Directory {test_dir_path} created successfully.")
+    # Test recreation
+    create_tmp_dir(test_dir_path)
+    assert os.path.exists(test_dir_path), f"Directory {test_dir_path} was not recreated."
+    print(f"Directory {test_dir_path} recreated successfully.")
+    # Clean up
+    shutil.rmtree(test_dir_path)
+    assert not os.path.exists(test_dir_path), f"Directory {test_dir_path} was not removed."
+    print(f"Directory {test_dir_path} removed successfully.")
+    print("create_tmp_dir test complete.")

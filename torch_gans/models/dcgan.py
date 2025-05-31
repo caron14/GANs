@@ -20,11 +20,12 @@ class DCGANGenerator(BaseGenerator):
         hidden_dim: int, default = 64
             The unit of intermediate-layer dimensions.
     """
-    def __init__(self, latent_dim: int = 100, img_shape: tuple[int, int, int] = (1, 28, 28), hidden_dim: int = 64):
-        super().__init__(latent_dim=latent_dim, img_shape=img_shape)
-        self.image_channels = img_shape[0]
-        # self.latent_dim is set by BaseGenerator's __init__
-
+    def __init__(self, z_dim=100, image_channels=1, hidden_dim=64, img_shape=(1, 28, 28)):
+        super().__init__(latent_dim=z_dim, img_shape=img_shape)
+        self.image_channels = image_channels
+        self.latent_dim = z_dim
+        self.hidden_dim = hidden_dim
+        self.img_shape = img_shape
         # Define the network architecture
         self.gen = nn.Sequential(
             self.block(self.latent_dim, hidden_dim * 4), # Use self.latent_dim

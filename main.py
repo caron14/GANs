@@ -53,8 +53,6 @@ def main(model_type, params):
     if model_type == 'ngan':
         gen, disc = train_ngan(
             dataloader,
-            # normalize_mean=None,
-            # normalize_std=None,
             output_path=output_path,
             z_dim=params['z_dim'],
             n_epochs=params['n_epochs'],
@@ -65,8 +63,8 @@ def main(model_type, params):
     elif model_type == 'dcgan':
         gen, disc = train_dcgan(
             dataloader,
-            normalize_mean=params['normalize_mean'],
-            normalize_std=params['normalize_std'],
+            normalize_mean=params.get('normalize_mean'),
+            normalize_std=params.get('normalize_std'),
             output_path=output_path,
             z_dim=params['z_dim'],
             n_epochs=params['n_epochs'],
@@ -115,6 +113,8 @@ if __name__ == '__main__':
             'display_step': 500,
             'batch_size': 128,
             'lr': 1e-5,
+            'normalize_mean': (0.5,),
+            'normalize_std': (0.5,),
         }
     elif model_type == 'dcgan':
         params = {

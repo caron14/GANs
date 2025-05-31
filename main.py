@@ -4,18 +4,12 @@ import sys
 
 import torch
 
-sys.path.append('./utils')
-from utils.utils import create_tmp_dir
-from datasets import load_mnist_dataset
+from torch_gans.utils import create_tmp_dir
+from torch_gans.data.datasets import load_mnist_dataset
 
-sys.path.append('./gans/normal_gan')
-from train_ngan import train_ngan
-
-sys.path.append('./gans/deep_convolutional_gan')
-from train_dcgan import train_dcgan
-
-sys.path.append('./gans/conditional_gan')
-from train_cgan import train_cgan
+from gans.normal_gan.train_ngan import train_ngan
+from gans.deep_convolutional_gan.train_dcgan import train_dcgan
+from gans.conditional_gan.train_cgan import train_cgan
 
 torch.manual_seed(0)
 

@@ -1,0 +1,32 @@
+[project]
+name = "torch_gans"
+version = "0.1.0"
+description = "A collection of Generative Adversarial Networks (GANs) implemented in PyTorch."
+dependencies = [
+    "torch",
+    "torchvision",
+    "pytorch-lightning",
+    "matplotlib",
+    "numpy",
+    "tqdm",
+    "pandas",
+    "scipy",
+    "seaborn",
+    "scikit-learn"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "flake8"
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["torch_gans*"]
+exclude = ["examples*", "tests*"]
+namespaces = false

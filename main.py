@@ -1,21 +1,16 @@
 import os
 from pathlib import Path
 import sys
+import argparse
 
 import torch
 
-sys.path.append('./utils')
-from utils.utils import create_tmp_dir
-from datasets import load_mnist_dataset
+from torch_gans.utils import create_tmp_dir
+from torch_gans.data.datasets import load_mnist_dataset
 
-sys.path.append('./gans/normal_gan')
-from train_ngan import train_ngan
-
-sys.path.append('./gans/deep_convolutional_gan')
-from train_dcgan import train_dcgan
-
-sys.path.append('./gans/conditional_gan')
-from train_cgan import train_cgan
+from gans.normal_gan.train_ngan import train_ngan
+from gans.deep_convolutional_gan.train_dcgan import train_dcgan
+from gans.conditional_gan.train_cgan import train_cgan
 
 torch.manual_seed(0)
 
@@ -58,8 +53,6 @@ def main(model_type, params):
     if model_type == 'ngan':
         gen, disc = train_ngan(
             dataloader,
-            # normalize_mean=None,
-            # normalize_std=None,
             output_path=output_path,
             z_dim=params['z_dim'],
             n_epochs=params['n_epochs'],
@@ -70,8 +63,8 @@ def main(model_type, params):
     elif model_type == 'dcgan':
         gen, disc = train_dcgan(
             dataloader,
-            normalize_mean=params['normalize_mean'],
-            normalize_std=params['normalize_std'],
+            normalize_mean=params.get('normalize_mean'),
+            normalize_std=params.get('normalize_std'),
             output_path=output_path,
             z_dim=params['z_dim'],
             n_epochs=params['n_epochs'],
@@ -108,7 +101,10 @@ if __name__ == '__main__':
     dcgan: Deep Convolutional GAN(DCGAN)
     cgan: Consitional GAN(CGAN)
     """
-    model_type = 'cgan'
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--model_type', type=str, default='cgan', help='Type of GAN model to use')
+    args = parser.parse_args()
+    model_type = args.model_type
     
     if model_type == 'ngan':
         params = {
@@ -117,6 +113,8 @@ if __name__ == '__main__':
             'display_step': 500,
             'batch_size': 128,
             'lr': 1e-5,
+            'normalize_mean': (0.5,),
+            'normalize_std': (0.5,),
         }
     elif model_type == 'dcgan':
         params = {

@@ -1,0 +1,26 @@
+# @package _group_
+_target_: torch_gans.models.dcgan.DCGANGenerator # Path to the Generator class
+latent_dim: 100
+img_shape: [1, 28, 28] # Overridden by data usually, but good default
+hidden_dim: 64
+
+discriminator:
+  _target_: torch_gans.models.dcgan.DCGANDiscriminator
+  img_shape: ${..img_shape} # Inherit from parent img_shape
+  hidden_dim: 16 # Original DCGAN paper used 64 for generator, this might be too small for discriminator.
+                 # Let's use a value that might be from the original codebase's dcgan.py or adjust later.
+                 # The original repo's dcgan.py Discriminator used hidden_dim=16.
+
+# Parameters for the DCGANModule (Lightning Module)
+# These will be part of a combined config for the main trainer.
+# For now, this file focuses on the model architecture itself.
+# We can have a separate section or file for the GAN module parameters if needed.
+module:
+  _target_: torch_gans.trainer.dcgan_module.DCGANModule
+  lr_g: 0.0002
+  lr_d: 0.0002
+  b1_g: 0.5
+  b2_g: 0.999
+  b1_d: 0.5
+  b2_d: 0.999
+  # generator and discriminator instances will be composed in the main config
